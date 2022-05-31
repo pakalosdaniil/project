@@ -5,19 +5,16 @@ import Header from './Components/Header/Header';
 import Routing from './Routing';
 
 import './App.css';
+import ProductContextProvider from './contexts/productsContext';
 
 const App = () => {
 
-function getUser () {
-  
-}
-
   return (
-    <div>
+    <ProductContextProvider>
       <Header/>
       <Routing/>
       <Footer/>
-    </div>
+    </ProductContextProvider>
   );
 };
 
