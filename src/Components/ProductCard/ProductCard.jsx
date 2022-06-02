@@ -1,32 +1,62 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import React from 'react';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
+import React, { useContext } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { useNavigate } from "react-router-dom";
+import { productContext } from "../../contexts/productsContext";
 
-const ProductCard = ({item}) => {
-    console.log(item);
-    return (
-        <Card sx={{ maxWidth: 300, margin: '10px' }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="450"
-          width="200"
-          image="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2022%2F03%2F04%2FEW-OWK-0422-Cover_6328.jpg&q=60"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
-    );
+const ProductCard = ({ item }) => {
+  const navigate = useNavigate();
+  const { deleteProduct } = useContext(productContext);
+
+  return (
+    <Card sx={{ maxWidth: 300, margin: "10px" }}>
+      <CardMedia
+        component="img"
+        alt="green iguana"
+        height="450"
+        width="200"
+        image={item.image}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.title}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.price}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {item.description.length > 20
+            ? `${item.description.slice(0, 20)}...`
+            : item.descricpiton}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" onClick={() => deleteProduct(item.id)}>
+          {" "}
+          <DeleteIcon />{" "}
+        </Button>
+        <Button onClick={() => navigate(`/edit/${item.id}`)} size="small">
+          <EditIcon />
+        </Button>
+        <Button size="small">
+          <ShoppingCartRoundedIcon />
+        </Button>
+        <Button onClick={() => navigate(`/products/${item.id}`)} size="small">
+          <MoreVertRoundedIcon />
+        </Button>
+      </CardActions>
+    </Card>
+  );
 };
 
 export default ProductCard;

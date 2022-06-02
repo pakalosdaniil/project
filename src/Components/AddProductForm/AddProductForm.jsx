@@ -1,11 +1,12 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { productContext } from '../../contexts/productsContext';
 
 // title, description, price, image
 const AddProductFrom = () => {
 const {createProduct} = useContext(productContext)
-
+const navigate = useNavigate()
 const [title,setTitle] = useState ('')
 const [description,setDescription] = useState ('')
 const [price,setPrice] = useState ('')
@@ -18,7 +19,12 @@ function handleValues () {
         price,
         image
     }
+    if (!title.trim() || !description.trim() || !price.trim() || !image.trim()) {
+        alert("Use your power to fill all gaps")
+        return
+    }
     createProduct(newProduct)
+    navigate('/products')
 }
     return (
         <Container maxWidth="sm">
