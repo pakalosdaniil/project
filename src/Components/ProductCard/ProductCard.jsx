@@ -32,7 +32,7 @@ const ProductCard = ({ item }) => {
           {item.title}
         </Typography>
         <Typography gutterBottom variant="h5" component="div">
-          {item.price}
+          $ {item.price}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {item.description.length > 20

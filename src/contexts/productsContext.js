@@ -8,12 +8,17 @@ const API = "http://localhost:8000/products";
 const INIT_STATE = {
   products: [],
   oneProduct: null,
+  pages: 0,
 };
 
 function reducer(state = INIT_STATE, action) {
   switch (action.type) {
     case "GET_PRODUCTS":
-      return { ...state, products: action.payload };
+      return {
+        ...state,
+        products: action.payload.data.reverse(),
+        pages: Math.ceil(action.payload.headers["x-total-count"] / 3),
+      };
     case "GET_ONE_PRODUCT":
       return { ...state, oneProduct: action.payload };
     default:
@@ -31,9 +36,10 @@ const ProductContextProvider = ({ children }) => {
     let response = await axios(`${API}${window.location.search}`);
     dispatch({
       type: "GET_PRODUCTS",
-      payload: response.data.reverse(),
+      payload: response,
     });
   }
+
   async function deleteProduct(id) {
     await axios.delete(`${API}/${id}`);
     getProducts();
@@ -58,6 +64,7 @@ const ProductContextProvider = ({ children }) => {
         products: state.products,
         oneProduct: state.oneProduct,
         editedProduct: state.editedProduct,
+        pages: state.pages,
         createProduct,
         getProducts,
         deleteProduct,
