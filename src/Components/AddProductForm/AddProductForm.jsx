@@ -26,6 +26,7 @@ const AddProductFrom = () => {
     createProduct(newProduct);
     navigate("/products");
   }
+
   return (
     <Container maxWidth="sm">
       <Box
