@@ -7,14 +7,17 @@ import Routing from "./Routing";
 import "./App.css";
 import ProductContextProvider from "./contexts/productsContext";
 import AuthContextProvider from "./contexts/authContext";
+import CartContextProvider from "./contexts/cartContext";
 
 const App = () => {
   return (
     <AuthContextProvider>
       <ProductContextProvider>
-        <Header />
-        <Routing />
-        <Footer />
+        <CartContextProvider>
+          <Header />
+          <Routing />
+          <Footer />
+        </CartContextProvider>
       </ProductContextProvider>
     </AuthContextProvider>
   );

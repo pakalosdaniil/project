@@ -6,53 +6,60 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
+import { cartContext } from "../../contexts/cartContext";
 import { productContext } from "../../contexts/productsContext";
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
   const { deleteProduct } = useContext(productContext);
-
+  const { addProductToCart, checkProductInCart } = useContext(cartContext);
+  const [checkProduct, setCheckProduct] = useState(checkProductInCart(item));
   return (
     <Card sx={{ maxWidth: 300, margin: "10px" }}>
       <CardMedia
         component="img"
         alt="green iguana"
-        height="450"
-        width="200"
+        height="500"
         image={item.image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div">
-          $ {item.price}
-        </Typography>
         <Typography variant="body2" color="text.secondary">
           {item.description.length > 20
             ? `${item.description.slice(0, 20)}...`
-            : item.descricpiton}
+            : item.description}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.price}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => deleteProduct(item.id)}>
-          {" "}
-          <DeleteIcon />{" "}
+          <DeleteIcon />
         </Button>
-        <Button onClick={() => navigate(`/edit/${item.id}`)} size="small">
+        <Button size="small" onClick={() => navigate(`/edit/${item.id}`)}>
           <EditIcon />
         </Button>
-        <Button size="small">
-          <ShoppingCartRoundedIcon />
+        <Button
+          onClick={() => {
+            addProductToCart(item);
+            setCheckProduct(checkProductInCart(item));
+          }}
+          size="small">
+          <AddShoppingCartIcon
+            style={{ color: checkProduct ? "green" : "primary" }}
+          />
         </Button>
-        <Button onClick={() => navigate(`/products/${item.id}`)} size="small">
-          <MoreVertRoundedIcon />
+        <Button size="small" onClick={() => navigate(`/products/${item.id}`)}>
+          <MoreHorizIcon />
         </Button>
       </CardActions>
     </Card>

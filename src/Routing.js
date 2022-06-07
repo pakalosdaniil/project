@@ -6,7 +6,7 @@ import EditProductForm from "./Components/EditProductForm/EditProductForm";
 import LoginForm from "./Components/LoginForm/LoginForm";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import ProductsLists from "./Components/ProductsList/ProductsLists";
-import SignUpForm from "./Components/SignInFrom/SignInForm";
+import SignUpForm from "./Components/SignUpFrom/SignUpForm";
 
 const Routing = () => {
   return (
