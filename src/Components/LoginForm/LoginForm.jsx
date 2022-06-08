@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
 
 const LoginForm = () => {
-  const { logIn, error } = useContext(authContext);
+  const { logIn, error, setError } = useContext(authContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,15 +55,17 @@ const LoginForm = () => {
       <Typography variant="p" component="h2">
         Don't have an account?{" "}
       </Typography>
-      <Link to="/signup">
-        <Typography
-          variant="p"
-          color={"primary"}
-          component="h2"
-          style={{ textDecoration: "none" }}>
-          sign up here
-        </Typography>
-      </Link>
+      <Typography
+        onClick={() => {
+          navigate("/signup");
+          setError("");
+        }}
+        variant="p"
+        color={"primary"}
+        component="h2"
+        style={{ textDecoration: "none" }}>
+        sign up here
+      </Typography>
     </Box>
   );
 };

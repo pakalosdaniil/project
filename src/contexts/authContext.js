@@ -8,7 +8,7 @@ const AuthContextProvider = ({ children }) => {
   const [error, setError] = useState("");
 
   function signUp(email, password, navigate) {
-    return fire
+    fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => navigate("/login"))
@@ -38,7 +38,8 @@ const AuthContextProvider = ({ children }) => {
   }
   useEffect(authListener, []);
   return (
-    <authContext.Provider value={{ currentUser, error, signUp, logIn, logOut }}>
+    <authContext.Provider
+      value={{ currentUser, error, signUp, logIn, logOut, setError }}>
       {children}
     </authContext.Provider>
   );

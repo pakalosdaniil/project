@@ -5,7 +5,7 @@ import { authContext } from "../../contexts/authContext";
 import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
-  const { signUp, error } = useContext(authContext);
+  const { signUp, error, setError } = useContext(authContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const SignUpForm = () => {
         return;
       }
     }
-    signUp(email, password, navigate("/products"));
+    signUp(email, password, navigate);
   }
   return (
     <Box
@@ -60,15 +60,17 @@ const SignUpForm = () => {
       <Typography variant="p" component="h2">
         Have you already registered?{" "}
       </Typography>
-      <Link to="/login">
-        <Typography
-          variant="p"
-          color={"primary"}
-          component="h2"
-          style={{ textDecoration: "none" }}>
-          Log in here
-        </Typography>
-      </Link>
+      <Typography
+        onClick={() => {
+          navigate("/login");
+          setError("");
+        }}
+        variant="p"
+        color={"primary"}
+        component="h2"
+        style={{ textDecoration: "none" }}>
+        Log in here
+      </Typography>
     </Box>
   );
 };
