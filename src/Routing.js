@@ -11,17 +11,15 @@ import SignUpForm from "./Components/SignUpFrom/SignUpForm";
 const Routing = () => {
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/add-product" element={<AddProductForm />} />
-          <Route path="/products" element={<ProductsLists />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/edit/:id" element={<EditProductForm />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/add-product" element={<AddProductForm />} />
+        <Route path="/products" element={<ProductsLists />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/edit/:id" element={<EditProductForm />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </div>
   );
 };

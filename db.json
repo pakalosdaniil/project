@@ -1,13 +1,6 @@
 {
   "products": [
     {
-      "title": "Obi-Wan Kenobi",
-      "description": "Star Wars Odyssey",
-      "price": 14,
-      "image": "https://preview.redd.it/l2rn4o3irhg81.jpg?width=640&crop=smart&auto=webp&s=2cc540347114983c52ced1d958f25e614dd7f17e",
-      "id": 1
-    },
-    {
       "title": "Mandalorian",
       "description": "Star Wars Odyssey",
       "price": 12,

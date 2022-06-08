@@ -6,8 +6,10 @@ import { authContext } from "../../contexts/authContext";
 const SignUpForm = () => {
   const { signUp, error } = useContext(authContext);
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   function handleValues() {
     signUp(email, password);
     {
