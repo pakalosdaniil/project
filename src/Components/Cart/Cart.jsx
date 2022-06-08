@@ -1,5 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Container } from "@mui/material";
+import { Container, IconButton, Box, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import InfoIcon from "@mui/icons-material/Info";
 import { cartContext } from "../../contexts/cartContext";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,21 +12,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { getCart, cart } = useContext(cartContext);
+  const navigate = useNavigate();
+  const { getCart, cart, changeProductCount, removeProductFromCart } =
+    useContext(cartContext);
   useEffect(() => {
     getCart();
   }, []);
@@ -52,15 +47,50 @@ export default function Cart() {
                     {row.item.title}
                   </TableCell>
                   <TableCell align="right">{row.item.price}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.count}</TableCell>
-                  <TableCell align="right">{row.subprice}</TableCell>
-                  <TableCell align="right">Details</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      onClick={() =>
+                        changeProductCount(row.count - 1, row.item.id)
+                      }
+                      aria-label="delete">
+                      <RemoveIcon />
+                    </IconButton>
+                    {row.count}
+                    <IconButton
+                      onClick={() =>
+                        changeProductCount(row.count + 1, row.item.id)
+                      }
+                      aria-label="delete">
+                      <AddIcon />{" "}
+                    </IconButton>
+                  </TableCell>
+                  <TableCell align="right">{row.subPrice}</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      onClick={() => removeProductFromCart(row.item.id)}
+                      aria-label="delete">
+                      <DeleteForeverIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => navigate(`/products/${row.item.id}`)}>
+                      <InfoIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Box
+        style={{
+          margin: "30px 20px",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}>
+        <Typography variant="h6" gutterBottom component="div">
+          Total: {cart && cart?.totalPrice}
+        </Typography>
+      </Box>
     </Container>
   );
 }

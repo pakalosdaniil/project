@@ -1,6 +1,6 @@
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
 
 const LoginForm = () => {
@@ -52,6 +52,18 @@ const LoginForm = () => {
         variant="contained">
         Log In
       </Button>
+      <Typography variant="p" component="h2">
+        Don't have an account?{" "}
+      </Typography>
+      <Link to="/signup">
+        <Typography
+          variant="p"
+          color={"primary"}
+          component="h2"
+          style={{ textDecoration: "none" }}>
+          sign up here
+        </Typography>
+      </Link>
     </Box>
   );
 };

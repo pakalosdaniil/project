@@ -70,11 +70,40 @@ const CartContextProvider = ({ children }) => {
         totalPrice: 0,
       };
     }
+    cart.totalPrice = cart.products.reduce(
+      (prev, curr) => prev + curr.subPrice,
+      0
+    );
+
     dispatch({
       type: "GET_CART",
       payload: cart,
     });
   }
+
+  function changeProductCount(count, id) {
+    if (count <= 0) {
+      count = 1;
+    }
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.products = cart.products.map(item => {
+      if (item.item.id === id) {
+        item.count = count;
+        item.subPrice = item.item.price * item.count;
+      }
+      return item;
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    getCart();
+  }
+
+  function removeProductFromCart(id) {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.products = cart.products.filter(item => item.item.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    getCart();
+  }
+
   return (
     <cartContext.Provider
       value={{
@@ -83,6 +112,8 @@ const CartContextProvider = ({ children }) => {
         addProductToCart,
         checkProductInCart,
         getCart,
+        changeProductCount,
+        removeProductFromCart,
       }}>
       {children}
     </cartContext.Provider>

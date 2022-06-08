@@ -2,6 +2,7 @@ import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   const { signUp, error } = useContext(authContext);
@@ -55,6 +56,19 @@ const SignUpForm = () => {
         variant="contained">
         Sign Up
       </Button>
+
+      <Typography variant="p" component="h2">
+        Have you already registered?{" "}
+      </Typography>
+      <Link to="/login">
+        <Typography
+          variant="p"
+          color={"primary"}
+          component="h2"
+          style={{ textDecoration: "none" }}>
+          Log in here
+        </Typography>
+      </Link>
     </Box>
   );
 };
